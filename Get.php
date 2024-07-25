@@ -53,7 +53,13 @@ class Get {
         $url = 'https://dota2.fandom.com/ru/wiki/' . $hero . '/%D0%A0%D0%B5%D0%BF%D0%BB%D0%B8%D0%BA%D0%B8';
         $xpath = Get::_xpath($url);
         $nodes = $xpath->query('//div[@class="mw-parser-output"]/h2');
-        return array_map(fn ($n) => $n->childNodes->item(1)->textContent, iterator_to_array($nodes));
+        return array_filter(
+            array_map(
+                fn ($n) => $n->childNodes->item(1)->textContent, 
+                iterator_to_array($nodes)
+            ),
+            fn ($g) => $g && $g != ''
+        );
     }
 
     /**

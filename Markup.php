@@ -56,6 +56,10 @@ class Markup {
         return $this->_voices;
     }
 
+    public function get_heroes() {
+        return $this->_heroes;
+    }
+
     private array $_heroes;
     private array $_groups;
     private array $_voices;

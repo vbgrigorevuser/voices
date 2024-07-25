@@ -17,7 +17,7 @@ class Bot {
         return function (Nutgram $bot) {
             $bot->sendMessage(
                 text: 'Герои',
-                reply_markup: $this->markup->heroes(),
+                reply_markup: $this->_markup->heroes(),
             );
         };
     }
@@ -27,8 +27,8 @@ class Bot {
             $this->cbdata = $bot->callbackQuery()->data;
             sscanf($this->cbdata, 'hero h %d', $this->hero_index);
             $bot->sendMessage(
-                text: 'Группы',
-                reply_markup: $this->markup->groups($this->hero_index),
+                text: $this->_markup->get_heroes()[$this->hero_index],
+                reply_markup: $this->_markup->groups($this->hero_index),
             );
         };
     }
@@ -38,8 +38,8 @@ class Bot {
             $this->cbdata = $bot->callbackQuery()->data;
             sscanf($this->cbdata, 'group h %d g %d', $this->hero_index, $this->group_index);
             $bot->sendMessage(
-                text: 'Реплики',
-                reply_markup: $this->markup->responses($this->hero_index, $this->group_index),
+                text: $this->_markup->get_heroes()[$this->hero_index],
+                reply_markup: $this->_markup->responses($this->hero_index, $this->group_index),
             );
         };
     }
@@ -50,7 +50,7 @@ class Bot {
             
             sscanf($this->cbdata, 'resp h %d g %d r %d', $this->hero_index, $this->group_index, $this->response_index);
             $bot->sendAudio(
-                $this->markup->get_voices()[$this->response_index][1],
+                $this->_markup->get_voices()[$this->response_index][1],
             );
             $bot->sendMessage(
                 text: 'Еще?',
@@ -65,7 +65,7 @@ class Bot {
     public function __construct() {
         global $BOT_TOKEN;
         $this->_bot = new Nutgram($BOT_TOKEN); // new Configuration(logger: ConsoleLogger::class)
-        $this->markup = new Markup();
+        $this->_markup = new Markup();
         $this->_bot->onCommand('start', $this->_gen_heroes_handler());
         $this->_bot->onCallbackQueryData('start', $this->_gen_heroes_handler());
         $this->_bot->onCallbackQueryData('hero h {hero}', $this->_gen_groups_handler());
