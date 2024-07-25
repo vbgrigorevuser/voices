@@ -8,8 +8,6 @@ require_once __DIR__ . '/Token.php';
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Types\Keyboard\InlineKeyboardButton;
 use SergiX44\Nutgram\Telegram\Types\Keyboard\InlineKeyboardMarkup;
-use SergiX44\Nutgram\Logger\ConsoleLogger;
-use SergiX44\Nutgram\Configuration;
 
 class Bot {
 
@@ -64,7 +62,7 @@ class Bot {
 
     public function __construct() {
         global $BOT_TOKEN;
-        $this->_bot = new Nutgram($BOT_TOKEN); // new Configuration(logger: ConsoleLogger::class)
+        $this->_bot = new Nutgram($BOT_TOKEN);
         $this->_markup = new Markup();
         $this->_bot->onCommand('start', $this->_gen_heroes_handler());
         $this->_bot->onCallbackQueryData('start', $this->_gen_heroes_handler());
