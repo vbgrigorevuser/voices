@@ -65,7 +65,9 @@ class Get {
         $url = 'https://dota2.fandom.com/ru/wiki/%D0%93%D0%B5%D1%80%D0%BE%D0%B8';
         $xpath = Get::_xpath($url);
         $nodes = $xpath->query('//div[@style="position:relative;"]/a');
-        return array_map(fn ($n) => $n->getAttribute('title'), iterator_to_array($nodes));    
+        $hs = array_map(fn ($n) => $n->getAttribute('title'), iterator_to_array($nodes));
+        sort($hs);
+        return $hs;    
     }
 
     /**

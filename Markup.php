@@ -13,7 +13,7 @@ class Markup {
         $this->_voices = $group_responses;
         $buttons = [];
         foreach ($group_responses as $idx => $response) {
-            array_push($buttons, InlineKeyboardButton::make($response[0], callback_data: 'h '. strval($hero_index) . ' g ' . strval($idx) . ' r ' . strval($idx)));
+            array_push($buttons, InlineKeyboardButton::make($response[0], callback_data: 'resp h '. strval($hero_index) . ' g ' . strval($idx) . ' r ' . strval($idx)));
         }
         $keyboard = InlineKeyboardMarkup::make();
         foreach ($buttons as $button) {
@@ -26,7 +26,7 @@ class Markup {
         $this->_groups = Get::groups($this->_heroes[$hero_index]);
         $buttons = [];
         foreach ($this->_groups as $idx => $group) {
-            array_push($buttons, InlineKeyboardButton::make($group, callback_data: 'h '. strval($hero_index) . ' g ' . strval($idx)));
+            array_push($buttons, InlineKeyboardButton::make($group, callback_data: 'group h '. strval($hero_index) . ' g ' . strval($idx)));
         }
         $keyboard = InlineKeyboardMarkup::make();
         foreach ($buttons as $button) {
@@ -38,7 +38,7 @@ class Markup {
     public function heroes() {
         $buttons = [];
         foreach ($this->_heroes as $idx => $hero) {
-            array_push($buttons, InlineKeyboardButton::make($hero, callback_data: 'h ' . strval($idx)));
+            array_push($buttons, InlineKeyboardButton::make($hero, callback_data: 'hero h ' . strval($idx)));
         }
         $keyboard = InlineKeyboardMarkup::make();
         foreach ($buttons as $button) {
